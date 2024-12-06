@@ -48,7 +48,21 @@ class ApplicationTest extends NsTest {
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
-
+    @Test
+    void 최소금액_예외_테스트() {
+        assertSimpleTest(() -> {
+            runException("25", "시저샐러드-1");
+            assertThat(output()).contains("<혜택 내역>"+ LINE_SEPARATOR + "없음");
+        });
+    }
+    @Test
+    void 최대수량_예외_테스트() {
+        assertSimpleTest(() -> {
+            runException("3", "시저샐러드-1,제로콜라-1,아이스크림-19");
+            assertThat(output()).contains("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.\n" +
+                    "(e.g. 시저샐러드-1, 티본스테이크-1, 크리스마스파스타-1, 제로콜라-3, 아이스크림-1의 총개수는 7개)");
+        });
+    }
     @Override
     protected void runMain() {
         Application.main(new String[]{});

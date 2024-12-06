@@ -7,7 +7,6 @@ public class Event {
         this.eventName = eventName;
         this.discount = discount;
     }
-
     public String getEvent() {
         return eventName;
     }
